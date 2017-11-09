@@ -1,1 +1,22 @@
+<body>
 {{request.user.username}}
+<div class=chat-text></div>
+<input id='txt' type="text"/>
+<input id='btn' type="submit"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+        $( document ).ready(function() {
+            socket.onopen = function() {
+            }
+        });
+        socket = new WebSocket("ws://" + window.location.host + "/index/");
+        socket.onmessage = function(e) {
+            $(".chat-text").append(e.data + "<br>");
+        }
+        if (socket.readyState == WebSocket.OPEN) socket.onopen();
+         $("#btn").click(function() {
+              var text = $("#txt").val();
+              socket.send(text);
+         });
+</script>
+</body>
