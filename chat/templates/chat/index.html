@@ -11,7 +11,8 @@
         });
         socket = new WebSocket("ws://" + window.location.host + "/index/");
         socket.onmessage = function(e) {
-            $(".chat-text").append(e.data + "<br>");
+            console.log(e.data);
+            $(".chat-text").append(e.data["username"] + ' : ' + e.data["text"] + "<br>");
         }
         if (socket.readyState == WebSocket.OPEN) socket.onopen();
          $("#btn").click(function() {
